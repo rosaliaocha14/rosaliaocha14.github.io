@@ -1,69 +1,132 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Website GitHub Pages</title>
+  <meta charset="UTF-8">
+  <title>Belajar Anak TK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .card {
-      background: rgba(0, 0, 0, 0.35);
-      padding: 30px;
-      border-radius: 16px;
-      max-width: 600px;
+      font-family: Comic Sans MS, Arial, sans-serif;
+      background: #fef9c3;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
-    h1 {
-      margin-bottom: 10px;
-      font-size: 2.2rem;
-    }
-    p {
-      line-height: 1.6;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: #22c55e;
-      color: #000;
+    header {
+      background: #38bdf8;
+      color: white;
+      padding: 20px;
+      font-size: 28px;
       font-weight: bold;
     }
-    button:hover {
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+    .menu button {
+      background: #22c55e;
+      border: none;
+      border-radius: 20px;
+      padding: 20px 30px;
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+    .menu button:hover {
       background: #16a34a;
     }
-    footer {
+    .content {
+      display: none;
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+    }
+    .card {
+      display: inline-block;
+      background: #fde68a;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 10px;
+      font-size: 40px;
+      width: 100px;
+      cursor: pointer;
+    }
+    .back {
       margin-top: 20px;
-      font-size: 0.85rem;
-      opacity: 0.8;
+      font-size: 18px;
+      background: #f97316;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Halo 👋</h1>
-    <h1>Selamat Datang di GitHub Pages Saya</h1>
-    <p>
-      Ini adalah website sederhana yang di-host menggunakan <b>GitHub Pages</b>.
-      Kamu bisa mengedit file <code>index.html</code> untuk menyesuaikan isi,
-      warna, dan fitur sesuai kebutuhan.
-    </p>
-    <button onclick="alert('GitHub Pages berhasil berjalan 🚀')">Tes Tombol</button>
-    <footer>
-      <p>© 2025 | Dibuat dengan HTML, CSS, dan JavaScript</p>
-    </footer>
-  </div>
+
+<header>🎈 Belajar Anak TK 🎈</header>
+
+<div class="menu" id="menu">
+  <button onclick="show('huruf')">🔤 Huruf</button>
+  <button onclick="show('angka')">🔢 Angka</button>
+  <button onclick="show('warna')">🎨 Warna</button>
+</div>
+
+<div id="huruf" class="content">
+  <h2>Belajar Huruf</h2>
+  <div class="card" onclick="speak('A')">A</div>
+  <div class="card" onclick="speak('B')">B</div>
+  <div class="card" onclick="speak('C')">C</div>
+  <div class="card" onclick="speak('D')">D</div>
+  <br>
+  <button class="back" onclick="back()">⬅ Kembali</button>
+</div>
+
+<div id="angka" class="content">
+  <h2>Belajar Angka</h2>
+  <div class="card" onclick="speak('Satu')">1</div>
+  <div class="card" onclick="speak('Dua')">2</div>
+  <div class="card" onclick="speak('Tiga')">3</div>
+  <div class="card" onclick="speak('Empat')">4</div>
+  <br>
+  <button class="back" onclick="back()">⬅ Kembali</button>
+</div>
+
+<div id="warna" class="content">
+  <h2>Belajar Warna</h2>
+  <div class="card" style="background:red;color:white" onclick="speak('Merah')">Merah</div>
+  <div class="card" style="background:blue;color:white" onclick="speak('Biru')">Biru</div>
+  <div class="card" style="background:yellow" onclick="speak('Kuning')">Kuning</div>
+  <div class="card" style="background:green;color:white" onclick="speak('Hijau')">Hijau</div>
+  <br>
+  <button class="back" onclick="back()">⬅ Kembali</button>
+</div>
+
+<script>
+  function show(id) {
+    document.getElementById('menu').style.display = 'none';
+    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function back() {
+    document.getElementById('menu').style.display = 'flex';
+    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+  }
+
+  function speak(text) {
+    const suara = new SpeechSynthesisUtterance(text);
+    suara.lang = 'id-ID';
+    speechSynthesis.speak(suara);
+  }
+</script>
+
 </body>
 </html>
+      
+      
