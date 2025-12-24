@@ -1,224 +1,139 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Belajar Lengkap Anak TK</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body{
-      margin:0;
-      font-family: Comic Sans MS, Arial, sans-serif;
-      background:#fef9c3;
-      text-align:center;
-    }
-    header{
-      background:#38bdf8;
-      color:white;
-      padding:20px;
-      font-size:28px;
-      font-weight:bold;
-    }
-    .menu{
-      display:flex;
-      justify-content:center;
-      gap:15px;
-      flex-wrap:wrap;
-      margin:20px;
-    }
-    .menu button{
-      background:#22c55e;
-      border:none;
-      border-radius:20px;
-      padding:20px 25px;
-      font-size:22px;
-      cursor:pointer;
-      color:white;
-      box-shadow:0 5px 10px rgba(0,0,0,0.2);
-    }
-    .menu button:hover{background:#16a34a;}
-    .content{
-      display:none;
-      margin:20px;
-      background:white;
-      padding:20px;
-      border-radius:20px;
-    }
-    .card{
-      display:inline-block;
-      background:#fde68a;
-      border-radius:20px;
-      padding:20px;
-      margin:10px;
-      font-size:40px;
-      width:90px;
-      cursor:pointer;
-    }
-    .back{
-      margin-top:20px;
-      font-size:18px;
-      background:#f97316;
-      border:none;
-      color:white;
-      padding:10px 20px;
-      border-radius:15px;
-      cursor:pointer;
-    }
-    .quiz-box{
-      margin-top:20px;
-      font-size:22px;
-    }
-    .option{
-      display:inline-block;
-      background:#a7f3d0;
-      padding:15px 20px;
-      border-radius:15px;
-      margin:10px;
-      cursor:pointer;
-      font-size:22px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Game Edukasi Anak TK</title>
+<style>
+body{
+  margin:0;
+  font-family: Comic Sans MS, Arial;
+  background:#fef9c3;
+  text-align:center;
+}
+header{
+  background:#38bdf8;
+  color:white;
+  padding:15px;
+  font-size:26px;
+}
+.menu{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:15px;
+  padding:20px;
+}
+button{
+  border:none;
+  border-radius:20px;
+  padding:20px;
+  font-size:18px;
+  cursor:pointer;
+}
+.menu button{background:#22c55e;color:white;height:100px}
+.content{
+  display:none;
+  background:white;
+  margin:15px;
+  padding:20px;
+  border-radius:20px;
+}
+.option{
+  background:#a7f3d0;
+  margin:10px auto;
+  padding:15px;
+  width:240px;
+  border-radius:15px;
+  font-size:22px;
+  cursor:pointer;
+}
+.gambar{font-size:90px;margin:10px}
+.back{background:#f97316;color:white;margin-top:15px}
+</style>
 </head>
+
 <body>
+<header>🎮 Game Edukasi Anak TK</header>
 
-<header>🎈 Belajar Lengkap Anak TK 🎈</header>
-
-<div class="menu" id="menu">
-  <button onclick="show('huruf')">🔤 Huruf A–Z</button>
-  <button onclick="show('angka')">🔢 Angka 1–10</button>
-  <button onclick="show('warna')">🎨 Warna</button>
-  <button onclick="show('quiz')">🧠 Kuis</button>
+<div id="menu" class="menu">
+  <button onclick="buka('kuis')">🧠 Kuis Pintar</button>
+  <button onclick="buka('hewan')">🐾 Game Hewan</button>
 </div>
 
-<div id="huruf" class="content">
-  <h2>Belajar Huruf A – Z</h2>
-  <script>
-    for(let i=65;i<=90;i++){
-      document.write(`<div class='card' onclick="speak('${String.fromCharCode(i)}')">${String.fromCharCode(i)}</div>`);
-    }
-  </script>
-  <br><button class="back" onclick="back()">⬅ Kembali</button>
-</div>
-
-<div id="angka" class="content">
-  <h2>Belajar Angka 1 – 10</h2>
-  <script>
-    const angka = ['Satu','Dua','Tiga','Empat','Lima','Enam','Tujuh','Delapan','Sembilan','Sepuluh'];
-    for(let i=1;i<=10;i++){
-      document.write(`<div class='card' onclick="speak('${angka[i-1]}')">${i}</div>`);
-    }
-  </script>
-  <br><button class="back" onclick="back()">⬅ Kembali</button>
-</div>
-
-<div id="warna" class="content">
-  <h2>Belajar Warna</h2>
-  <div class="card" style="background:red;color:white" onclick="speak('Merah')">Merah</div>
-  <div class="card" style="background:blue;color:white" onclick="speak('Biru')">Biru</div>
-  <div class="card" style="background:yellow" onclick="speak('Kuning')">Kuning</div>
-  <div class="card" style="background:green;color:white" onclick="speak('Hijau')">Hijau</div>
-  <div class="card" style="background:purple;color:white" onclick="speak('Ungu')">Ungu</div>
-  <div class="card" style="background:orange;color:white" onclick="speak('Oranye')">Oranye</div>
-  <br><button class="back" onclick="back()">⬅ Kembali</button>
-</div>
-
-<div id="quiz" class="content">
-  <h2>🎮 Permainan Kuis Anak TK 🎮</h2>
-  <p id="score">Skor: 0 ⭐</p>
-  <div class="quiz-box" id="question">Pertanyaan muncul di sini</div>
-  <div id="options"></div>
-  <br>
-  <button class="back" onclick="back()">⬅ Kembali</button>
-</div>
-  <div class="option" onclick="jawab(true)">3</div>
-  <div class="option" onclick="jawab(false)">5</div>
-  <div class="option" onclick="jawab(false)">1</div>
-  <br><button class="back" onclick="back()">⬅ Kembali</button>
-</div>
+<div id="kuis" class="content"></div>
+<div id="hewan" class="content"></div>
 
 <script>
-  function show(id){
-    menu.style.display='none';
-    document.querySelectorAll('.content').forEach(c=>c.style.display='none');
-    document.getElementById(id).style.display='block';
-    if(id === 'quiz'){
-      mulaiGame();
-    }
-  }
-  function back(){
-    menu.style.display='flex';
-    document.querySelectorAll('.content').forEach(c=>c.style.display='none');
-  }
-  function speak(text){
-    const suara=new SpeechSynthesisUtterance(text);
-    suara.lang='id-ID';
-    speechSynthesis.speak(suara);
-  }
-  let skor = 0;
-  const soal = [
-    {q:'Angka berapa ini? 5', pilihan:['3','5','7'], benar:'5'},
-    {q:'Huruf apa ini? B', pilihan:['A','B','C'], benar:'B'},
-    {q:'Warna apa ini?', pilihan:['Merah','Biru','Hijau'], benar:'Merah'},
-    {q:'Angka berapa ini? 2', pilihan:['1','2','4'], benar:'2'},
-    {q:'Huruf apa ini? D', pilihan:['D','E','C'], benar:'D'},
-    {q:'Warna apa ini?', pilihan:['Kuning','Ungu','Hitam'], benar:'Kuning'}
-  ];
-  let indexSoal = 0;
+// ===== DATA KUIS (BANYAK) =====
+const kuis=[
+ {q:'Angka berapa ini?', g:'1️⃣', p:['1','3','5'], b:'1'},
+ {q:'Angka berapa ini?', g:'4️⃣', p:['2','4','6'], b:'4'},
+ {q:'Angka berapa ini?', g:'7️⃣', p:['7','5','9'], b:'7'},
+ {q:'Huruf apa ini?', g:'🅰️', p:['A','B','C'], b:'A'},
+ {q:'Huruf apa ini?', g:'🅱️', p:['C','B','D'], b:'B'},
+ {q:'Huruf apa ini?', g:'🅾️', p:['O','Q','D'], b:'O'},
+ {q:'Warna apa ini?', g:'🟥', p:['Merah','Hijau','Biru'], b:'Merah'},
+ {q:'Warna apa ini?', g:'🟨', p:['Ungu','Kuning','Hitam'], b:'Kuning'},
+ {q:'Warna apa ini?', g:'🟦', p:['Biru','Merah','Putih'], b:'Biru'}
+];
 
-  function mulaiGame(){
-    skor = 0;
-    indexSoal = 0;
-    tampilSoal();
-  }
+// ===== DATA HEWAN (BANYAK) =====
+const hewan=[
+ {q:'Hewan apa ini?', g:'🐶', p:['Anjing','Sapi','Kucing'], b:'Anjing'},
+ {q:'Hewan apa ini?', g:'🐱', p:['Ayam','Kucing','Bebek'], b:'Kucing'},
+ {q:'Hewan apa ini?', g:'🐮', p:['Kuda','Sapi','Kambing'], b:'Sapi'},
+ {q:'Hewan apa ini?', g:'🐔', p:['Ayam','Burung','Bebek'], b:'Ayam'},
+ {q:'Hewan apa ini?', g:'🦆', p:['Angsa','Bebek','Ayam'], b:'Bebek'},
+ {q:'Hewan apa ini?', g:'🐴', p:['Kuda','Sapi','Kerbau'], b:'Kuda'},
+ {q:'Hewan apa ini?', g:'🐷', p:['Babi','Sapi','Kambing'], b:'Babi'},
+ {q:'Hewan apa ini?', g:'🐸', p:['Katak','Ular','Cicak'], b:'Katak'}
+];
 
-  function tampilSoal(){
-    const s = soal[indexSoal];
-    document.getElementById('question').innerText = s.q;
-    document.getElementById('score').innerText = `Skor: ${skor} ⭐`;
-    const opsi = document.getElementById('options');
-    opsi.innerHTML = '';
-    s.pilihan.forEach(p=>{
-      const btn = document.createElement('div');
-      btn.className = 'option';
-      btn.innerText = p;
-      btn.onclick = ()=>cekJawaban(p);
-      opsi.appendChild(btn);
-    });
-  }
+// ===== FUNGSI =====
+function buka(id){
+  document.getElementById('menu').style.display='none';
+  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+  document.getElementById(id).style.display='block';
+  id==='kuis'?mainKuis():mainHewan();
+}
 
-  function cekJawaban(j){
-    const s = soal[indexSoal];
-    if(j === s.benar){
-      skor++;
-      speak('Hebat');
-    } else {
-      speak('Coba lagi');
-    }
+function kembali(){
+  document.getElementById('menu').style.display='grid';
+  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+}
 
-    indexSoal++;
-    if(indexSoal >= soal.length){
-      indexSoal = 0; // ulang dari awal
-      speak('Lanjut bermain');
-    }
+// ===== ACAK ARRAY =====
+function acak(arr){
+  return arr.sort(()=>Math.random()-0.5);
+}
 
-    document.getElementById('score').innerText = `Skor: ${skor} ⭐`;
-    setTimeout(tampilSoal, 500);
-  } else {
-      speak('Coba lagi');
-    }
-    indexSoal++;
-    if(indexSoal < soal.length){
-      setTimeout(tampilSoal,500);
-    } else {
-      document.getElementById('question').innerText = 'Permainan Selesai 🎉';
-      document.getElementById('options').innerHTML = `Skor akhir: ${skor} ⭐`;
-      speak('Permainan selesai');
-    }
-  }
-(benar){
-    if(benar){alert('Hebat! ⭐'); speak('Hebat');}
-    else{alert('Coba lagi'); speak('Coba lagi');}
-  }
+function mainKuis(){
+  const k=kuis[Math.floor(Math.random()*kuis.length)];
+  const opsi=acak([...k.p]);
+  document.getElementById('kuis').innerHTML=`
+    <h2>🧠 Kuis Pintar</h2>
+    <div class="gambar">${k.g}</div>
+    <p>${k.q}</p>
+    ${opsi.map(p=>`<div class="option" onclick="cek('${p}','${k.b}','kuis')">${p}</div>`).join('')}
+    <button class="back" onclick="kembali()">⬅ Kembali</button>
+  `;
+}
+
+function mainHewan(){
+  const h=hewan[Math.floor(Math.random()*hewan.length)];
+  const opsi=acak([...h.p]);
+  document.getElementById('hewan').innerHTML=`
+    <h2>🐾 Game Hewan</h2>
+    <div class="gambar">${h.g}</div>
+    <p>${h.q}</p>
+    ${opsi.map(p=>`<div class="option" onclick="cek('${p}','${h.b}','hewan')">${p}</div>`).join('')}
+    <button class="back" onclick="kembali()">⬅ Kembali</button>
+  `;
+}
+
+function cek(j,b,mode){
+  alert(j===b?'✅ Benar! Pintar 🎉':'❌ Coba lagi ya 😊');
+  mode==='kuis'?mainKuis():mainHewan();
+}
 </script>
-
 </body>
 </html>
