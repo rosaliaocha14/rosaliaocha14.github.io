@@ -2,99 +2,112 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Belajar Anak TK</title>
+  <title>Belajar Lengkap Anak TK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      margin: 0;
+    body{
+      margin:0;
       font-family: Comic Sans MS, Arial, sans-serif;
-      background: #fef9c3;
-      text-align: center;
+      background:#fef9c3;
+      text-align:center;
     }
-    header {
-      background: #38bdf8;
-      color: white;
-      padding: 20px;
-      font-size: 28px;
-      font-weight: bold;
+    header{
+      background:#38bdf8;
+      color:white;
+      padding:20px;
+      font-size:28px;
+      font-weight:bold;
     }
-    .menu {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 20px;
+    .menu{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin:20px;
     }
-    .menu button {
-      background: #22c55e;
-      border: none;
-      border-radius: 20px;
-      padding: 20px 30px;
-      font-size: 22px;
-      cursor: pointer;
-      color: white;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    .menu button{
+      background:#22c55e;
+      border:none;
+      border-radius:20px;
+      padding:20px 25px;
+      font-size:22px;
+      cursor:pointer;
+      color:white;
+      box-shadow:0 5px 10px rgba(0,0,0,0.2);
     }
-    .menu button:hover {
-      background: #16a34a;
+    .menu button:hover{background:#16a34a;}
+    .content{
+      display:none;
+      margin:20px;
+      background:white;
+      padding:20px;
+      border-radius:20px;
     }
-    .content {
-      display: none;
-      margin: 20px;
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
+    .card{
+      display:inline-block;
+      background:#fde68a;
+      border-radius:20px;
+      padding:20px;
+      margin:10px;
+      font-size:40px;
+      width:90px;
+      cursor:pointer;
     }
-    .card {
-      display: inline-block;
-      background: #fde68a;
-      border-radius: 20px;
-      padding: 20px;
-      margin: 10px;
-      font-size: 40px;
-      width: 100px;
-      cursor: pointer;
+    .back{
+      margin-top:20px;
+      font-size:18px;
+      background:#f97316;
+      border:none;
+      color:white;
+      padding:10px 20px;
+      border-radius:15px;
+      cursor:pointer;
     }
-    .back {
-      margin-top: 20px;
-      font-size: 18px;
-      background: #f97316;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 15px;
-      cursor: pointer;
+    .quiz-box{
+      margin-top:20px;
+      font-size:22px;
+    }
+    .option{
+      display:inline-block;
+      background:#a7f3d0;
+      padding:15px 20px;
+      border-radius:15px;
+      margin:10px;
+      cursor:pointer;
+      font-size:22px;
     }
   </style>
 </head>
 <body>
 
-<header>🎈 Belajar Anak TK 🎈</header>
+<header>🎈 Belajar Lengkap Anak TK 🎈</header>
 
 <div class="menu" id="menu">
-  <button onclick="show('huruf')">🔤 Huruf</button>
-  <button onclick="show('angka')">🔢 Angka</button>
+  <button onclick="show('huruf')">🔤 Huruf A–Z</button>
+  <button onclick="show('angka')">🔢 Angka 1–10</button>
   <button onclick="show('warna')">🎨 Warna</button>
+  <button onclick="show('quiz')">🧠 Kuis</button>
 </div>
 
 <div id="huruf" class="content">
-  <h2>Belajar Huruf</h2>
-  <div class="card" onclick="speak('A')">A</div>
-  <div class="card" onclick="speak('B')">B</div>
-  <div class="card" onclick="speak('C')">C</div>
-  <div class="card" onclick="speak('D')">D</div>
-  <br>
-  <button class="back" onclick="back()">⬅ Kembali</button>
+  <h2>Belajar Huruf A – Z</h2>
+  <script>
+    for(let i=65;i<=90;i++){
+      document.write(`<div class='card' onclick="speak('${String.fromCharCode(i)}')">${String.fromCharCode(i)}</div>`);
+    }
+  </script>
+  <br><button class="back" onclick="back()">⬅ Kembali</button>
 </div>
 
 <div id="angka" class="content">
-  <h2>Belajar Angka</h2>
-  <div class="card" onclick="speak('Satu')">1</div>
-  <div class="card" onclick="speak('Dua')">2</div>
-  <div class="card" onclick="speak('Tiga')">3</div>
-  <div class="card" onclick="speak('Empat')">4</div>
-  <br>
-  <button class="back" onclick="back()">⬅ Kembali</button>
+  <h2>Belajar Angka 1 – 10</h2>
+  <script>
+    const angka = ['Satu','Dua','Tiga','Empat','Lima','Enam','Tujuh','Delapan','Sembilan','Sepuluh'];
+    for(let i=1;i<=10;i++){
+      document.write(`<div class='card' onclick="speak('${angka[i-1]}')">${i}</div>`);
+    }
+  </script>
+  <br><button class="back" onclick="back()">⬅ Kembali</button>
 </div>
 
 <div id="warna" class="content">
@@ -103,30 +116,40 @@
   <div class="card" style="background:blue;color:white" onclick="speak('Biru')">Biru</div>
   <div class="card" style="background:yellow" onclick="speak('Kuning')">Kuning</div>
   <div class="card" style="background:green;color:white" onclick="speak('Hijau')">Hijau</div>
-  <br>
-  <button class="back" onclick="back()">⬅ Kembali</button>
+  <div class="card" style="background:purple;color:white" onclick="speak('Ungu')">Ungu</div>
+  <div class="card" style="background:orange;color:white" onclick="speak('Oranye')">Oranye</div>
+  <br><button class="back" onclick="back()">⬅ Kembali</button>
+</div>
+
+<div id="quiz" class="content">
+  <h2>Kuis Anak Pintar ⭐</h2>
+  <div class="quiz-box" id="quizText">Angka berapa ini? 3</div>
+  <div class="option" onclick="jawab(true)">3</div>
+  <div class="option" onclick="jawab(false)">5</div>
+  <div class="option" onclick="jawab(false)">1</div>
+  <br><button class="back" onclick="back()">⬅ Kembali</button>
 </div>
 
 <script>
-  function show(id) {
-    document.getElementById('menu').style.display = 'none';
-    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
+  function show(id){
+    menu.style.display='none';
+    document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+    document.getElementById(id).style.display='block';
   }
-
-  function back() {
-    document.getElementById('menu').style.display = 'flex';
-    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+  function back(){
+    menu.style.display='flex';
+    document.querySelectorAll('.content').forEach(c=>c.style.display='none');
   }
-
-  function speak(text) {
-    const suara = new SpeechSynthesisUtterance(text);
-    suara.lang = 'id-ID';
+  function speak(text){
+    const suara=new SpeechSynthesisUtterance(text);
+    suara.lang='id-ID';
     speechSynthesis.speak(suara);
+  }
+  function jawab(benar){
+    if(benar){alert('Hebat! ⭐'); speak('Hebat');}
+    else{alert('Coba lagi'); speak('Coba lagi');}
   }
 </script>
 
 </body>
 </html>
-      
-      
