@@ -37,6 +37,15 @@ button{
   padding:20px;
   border-radius:20px;
 }
+.card{
+  display:inline-block;
+  background:#fde68a;
+  border-radius:20px;
+  padding:20px;
+  margin:10px;
+  font-size:40px;
+  width:90px;
+}
 .option{
   background:#a7f3d0;
   margin:10px auto;
@@ -47,6 +56,7 @@ button{
   cursor:pointer;
 }
 .gambar{font-size:90px;margin:10px}
+.info{font-size:18px;margin:5px}
 .back{background:#f97316;color:white;margin-top:15px}
 </style>
 </head>
@@ -55,85 +65,122 @@ button{
 <header>🎮 Game Edukasi Anak TK</header>
 
 <div id="menu" class="menu">
-  <button onclick="buka('kuis')">🧠 Kuis Pintar</button>
-  <button onclick="buka('hewan')">🐾 Game Hewan</button>
+  <button onclick="buka('huruf')">🔤 Huruf</button>
+  <button onclick="buka('angka')">🔢 Angka</button>
+  <button onclick="buka('warna')">🎨 Warna</button>
+  <button onclick="buka('kuis')">🧠 Kuis</button>
+  <button onclick="buka('hewan')">🐾 Hewan</button>
 </div>
 
+<div id="huruf" class="content"></div>
+<div id="angka" class="content"></div>
+<div id="warna" class="content"></div>
 <div id="kuis" class="content"></div>
 <div id="hewan" class="content"></div>
 
 <script>
-// ===== DATA KUIS (BANYAK) =====
+// ================= DATA =================
+const huruf="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const angka=[1,2,3,4,5,6,7,8,9,10];
+const warna=[
+ {n:'Merah',g:'🟥'},{n:'Kuning',g:'🟨'},
+ {n:'Biru',g:'🟦'},{n:'Hijau',g:'🟩'}
+];
+
 const kuis=[
- {q:'Angka berapa ini?', g:'1️⃣', p:['1','3','5'], b:'1'},
- {q:'Angka berapa ini?', g:'4️⃣', p:['2','4','6'], b:'4'},
- {q:'Angka berapa ini?', g:'7️⃣', p:['7','5','9'], b:'7'},
- {q:'Huruf apa ini?', g:'🅰️', p:['A','B','C'], b:'A'},
- {q:'Huruf apa ini?', g:'🅱️', p:['C','B','D'], b:'B'},
- {q:'Huruf apa ini?', g:'🅾️', p:['O','Q','D'], b:'O'},
- {q:'Warna apa ini?', g:'🟥', p:['Merah','Hijau','Biru'], b:'Merah'},
- {q:'Warna apa ini?', g:'🟨', p:['Ungu','Kuning','Hitam'], b:'Kuning'},
- {q:'Warna apa ini?', g:'🟦', p:['Biru','Merah','Putih'], b:'Biru'}
+ {q:'Angka berapa ini?',g:'4️⃣',p:['2','4','6'],b:'4'},
+ {q:'Huruf apa ini?',g:'🅱️',p:['A','B','C'],b:'B'},
+ {q:'Warna apa ini?',g:'🟦',p:['Merah','Biru','Hijau'],b:'Biru'}
 ];
 
-// ===== DATA HEWAN (BANYAK) =====
 const hewan=[
- {q:'Hewan apa ini?', g:'🐶', p:['Anjing','Sapi','Kucing'], b:'Anjing'},
- {q:'Hewan apa ini?', g:'🐱', p:['Ayam','Kucing','Bebek'], b:'Kucing'},
- {q:'Hewan apa ini?', g:'🐮', p:['Kuda','Sapi','Kambing'], b:'Sapi'},
- {q:'Hewan apa ini?', g:'🐔', p:['Ayam','Burung','Bebek'], b:'Ayam'},
- {q:'Hewan apa ini?', g:'🦆', p:['Angsa','Bebek','Ayam'], b:'Bebek'},
- {q:'Hewan apa ini?', g:'🐴', p:['Kuda','Sapi','Kerbau'], b:'Kuda'},
- {q:'Hewan apa ini?', g:'🐷', p:['Babi','Sapi','Kambing'], b:'Babi'},
- {q:'Hewan apa ini?', g:'🐸', p:['Katak','Ular','Cicak'], b:'Katak'}
+ {g:'🐶',p:['Anjing','Sapi','Kucing'],b:'Anjing'},
+ {g:'🐱',p:['Ayam','Kucing','Bebek'],b:'Kucing'},
+ {g:'🐮',p:['Sapi','Kuda','Kambing'],b:'Sapi'},
+ {g:'🐔',p:['Ayam','Burung','Bebek'],b:'Ayam'}
 ];
 
-// ===== FUNGSI =====
+// ================= STATUS GAME =================
+let skorKuis=0, streak=0;
+let skorHewan=0, level=1;
+
+// ================= UMUM =================
 function buka(id){
-  document.getElementById('menu').style.display='none';
-  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
-  document.getElementById(id).style.display='block';
-  id==='kuis'?mainKuis():mainHewan();
+ document.getElementById('menu').style.display='none';
+ document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+ document.getElementById(id).style.display='block';
+ if(id==='huruf') tampilHuruf();
+ if(id==='angka') tampilAngka();
+ if(id==='warna') tampilWarna();
+ if(id==='kuis') mainKuis();
+ if(id==='hewan') mainHewan();
 }
-
 function kembali(){
-  document.getElementById('menu').style.display='grid';
-  document.querySelectorAll('.content').forEach(c=>c.style.display='none');
+ document.getElementById('menu').style.display='grid';
+ document.querySelectorAll('.content').forEach(c=>c.style.display='none');
 }
 
-// ===== ACAK ARRAY =====
-function acak(arr){
-  return arr.sort(()=>Math.random()-0.5);
+// ================= BELAJAR =================
+function tampilHuruf(){
+ hurufDiv('huruf','🔤 Belajar Huruf',huruf);
+}
+function tampilAngka(){
+ hurufDiv('angka','🔢 Belajar Angka',angka);
+}
+function tampilWarna(){
+ document.getElementById('warna').innerHTML=`
+ <h2>🎨 Belajar Warna</h2>
+ ${warna.map(w=>`<div class="card">${w.g}<br>${w.n}</div>`).join('')}
+ <button class="back" onclick="kembali()">⬅ Kembali</button>`;
+}
+function hurufDiv(id,judul,data){
+ document.getElementById(id).innerHTML=`
+ <h2>${judul}</h2>
+ ${data.map(x=>`<div class="card">${x}</div>`).join('')}
+ <button class="back" onclick="kembali()">⬅ Kembali</button>`;
 }
 
+// ================= KUIS (GAME) =================
 function mainKuis(){
-  const k=kuis[Math.floor(Math.random()*kuis.length)];
-  const opsi=acak([...k.p]);
-  document.getElementById('kuis').innerHTML=`
-    <h2>🧠 Kuis Pintar</h2>
-    <div class="gambar">${k.g}</div>
-    <p>${k.q}</p>
-    ${opsi.map(p=>`<div class="option" onclick="cek('${p}','${k.b}','kuis')">${p}</div>`).join('')}
-    <button class="back" onclick="kembali()">⬅ Kembali</button>
-  `;
+ const k=kuis[Math.floor(Math.random()*kuis.length)];
+ document.getElementById('kuis').innerHTML=`
+ <h2>🧠 Kuis Game</h2>
+ <div class="info">⭐ Skor: ${skorKuis} | 🔥 Streak: ${streak}</div>
+ <div class="gambar">${k.g}</div>
+ <p>${k.q}</p>
+ ${acak(k.p).map(p=>`<div class="option" onclick="cekKuis('${p}','${k.b}')">${p}</div>`).join('')}
+ <button class="back" onclick="kembali()">⬅ Kembali</button>`;
+}
+function cekKuis(j,b){
+ if(j===b){
+   skorKuis+=10;
+   streak++;
+ }else{
+   streak=0;
+ }
+ mainKuis();
 }
 
+// ================= HEWAN (GAME) =================
 function mainHewan(){
-  const h=hewan[Math.floor(Math.random()*hewan.length)];
-  const opsi=acak([...h.p]);
-  document.getElementById('hewan').innerHTML=`
-    <h2>🐾 Game Hewan</h2>
-    <div class="gambar">${h.g}</div>
-    <p>${h.q}</p>
-    ${opsi.map(p=>`<div class="option" onclick="cek('${p}','${h.b}','hewan')">${p}</div>`).join('')}
-    <button class="back" onclick="kembali()">⬅ Kembali</button>
-  `;
+ const h=hewan[Math.floor(Math.random()*hewan.length)];
+ document.getElementById('hewan').innerHTML=`
+ <h2>🐾 Game Hewan</h2>
+ <div class="info">⭐ Poin: ${skorHewan} | 🏆 Level: ${level}</div>
+ <div class="gambar">${h.g}</div>
+ ${acak(h.p).map(p=>`<div class="option" onclick="cekHewan('${p}','${h.b}')">${p}</div>`).join('')}
+ <button class="back" onclick="kembali()">⬅ Kembali</button>`;
+}
+function cekHewan(j,b){
+ if(j===b){
+   skorHewan+=5;
+   if(skorHewan%25===0) level++;
+ }
+ mainHewan();
 }
 
-function cek(j,b,mode){
-  alert(j===b?'✅ Benar! Pintar 🎉':'❌ Coba lagi ya 😊');
-  mode==='kuis'?mainKuis():mainHewan();
-}
+// ================= UTIL =================
+function acak(arr){return [...arr].sort(()=>Math.random()-0.5);}
 </script>
 </body>
 </html>
