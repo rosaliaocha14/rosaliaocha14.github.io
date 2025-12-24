@@ -122,8 +122,13 @@
 </div>
 
 <div id="quiz" class="content">
-  <h2>Kuis Anak Pintar ⭐</h2>
-  <div class="quiz-box" id="quizText">Angka berapa ini? 3</div>
+  <h2>🎮 Permainan Kuis Anak TK 🎮</h2>
+  <p id="score">Skor: 0 ⭐</p>
+  <div class="quiz-box" id="question">Pertanyaan muncul di sini</div>
+  <div id="options"></div>
+  <br>
+  <button class="back" onclick="back()">⬅ Kembali</button>
+</div>
   <div class="option" onclick="jawab(true)">3</div>
   <div class="option" onclick="jawab(false)">5</div>
   <div class="option" onclick="jawab(false)">1</div>
@@ -145,7 +150,68 @@
     suara.lang='id-ID';
     speechSynthesis.speak(suara);
   }
-  function jawab(benar){
+  let skor = 0;
+  const soal = [
+    {q:'Angka berapa ini? 5', pilihan:['3','5','7'], benar:'5'},
+    {q:'Huruf apa ini? B', pilihan:['A','B','C'], benar:'B'},
+    {q:'Warna apa ini?', pilihan:['Merah','Biru','Hijau'], benar:'Merah'},
+    {q:'Angka berapa ini? 2', pilihan:['1','2','4'], benar:'2'},
+    {q:'Huruf apa ini? D', pilihan:['D','E','C'], benar:'D'},
+    {q:'Warna apa ini?', pilihan:['Kuning','Ungu','Hitam'], benar:'Kuning'}
+  ];
+  let indexSoal = 0;
+
+  function mulaiGame(){
+    skor = 0;
+    indexSoal = 0;
+    tampilSoal();
+  }
+
+  function tampilSoal(){
+    const s = soal[indexSoal];
+    document.getElementById('question').innerText = s.q;
+    document.getElementById('score').innerText = `Skor: ${skor} ⭐`;
+    const opsi = document.getElementById('options');
+    opsi.innerHTML = '';
+    s.pilihan.forEach(p=>{
+      const btn = document.createElement('div');
+      btn.className = 'option';
+      btn.innerText = p;
+      btn.onclick = ()=>cekJawaban(p);
+      opsi.appendChild(btn);
+    });
+  }
+
+  function cekJawaban(j){
+    const s = soal[indexSoal];
+    if(j === s.benar){
+      skor++;
+      speak('Hebat');
+    } else {
+      speak('Coba lagi');
+    }
+
+    indexSoal++;
+    if(indexSoal >= soal.length){
+      indexSoal = 0; // ulang dari awal
+      speak('Lanjut bermain');
+    }
+
+    document.getElementById('score').innerText = `Skor: ${skor} ⭐`;
+    setTimeout(tampilSoal, 500);
+  } else {
+      speak('Coba lagi');
+    }
+    indexSoal++;
+    if(indexSoal < soal.length){
+      setTimeout(tampilSoal,500);
+    } else {
+      document.getElementById('question').innerText = 'Permainan Selesai 🎉';
+      document.getElementById('options').innerHTML = `Skor akhir: ${skor} ⭐`;
+      speak('Permainan selesai');
+    }
+  }
+(benar){
     if(benar){alert('Hebat! ⭐'); speak('Hebat');}
     else{alert('Coba lagi'); speak('Coba lagi');}
   }
